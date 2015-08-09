@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: GameScreen
+    uniqueID: 2032205339
+    locked: 0
+  - name: LoadingScreen
+    uniqueID: 3130443027
+    locked: 0
