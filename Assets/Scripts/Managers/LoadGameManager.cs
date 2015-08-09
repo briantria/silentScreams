@@ -7,11 +7,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LoadGameManager : MonoSingleton <LoadGameManager> 
 {
-	// completely loaded -> all needed assets were initialized on game start
-	[SerializeField] private bool m_isGameCompletelyLoaded = true;
 	[SerializeField] private GameObject m_objProgressbar;
 	[SerializeField] private RectTransform m_rtProgressbar;
 	[SerializeField] private Text m_textProgress;
@@ -20,7 +19,6 @@ public class LoadGameManager : MonoSingleton <LoadGameManager>
 	private float m_fProgressbarMaxWidth;
 	private Vector2 m_v2ProgressbarSizeDelta;
 
-	public bool IsGameCompletelyLoaded { get {return m_isGameCompletelyLoaded;}}
 	public bool IsLoadingAssets { get; set; }
 
 	protected override void Awake ()
@@ -32,11 +30,18 @@ public class LoadGameManager : MonoSingleton <LoadGameManager>
 	{
 		// First to load in entire game
 		StartLoading ();
-		
-		if(m_isGameCompletelyLoaded)
+		StartCoroutine("LoadAssets");
+		StartCoroutine("DisplayTitleScreen");
+	}
+
+	private IEnumerator DisplayTitleScreen ()
+	{
+		while(m_fLoadingProgress < 1.0f)
 		{
-			StartCoroutine("LoadAll");
+			yield return new WaitForEndOfFrame();
 		}
+
+		UIStateMachine.Instance.ChangeUIState(UIState.OnTitleScreen);
 	}
 
 	private IEnumerator SimpleLoadTextAnimation ()
@@ -73,9 +78,35 @@ public class LoadGameManager : MonoSingleton <LoadGameManager>
 		}
 	}
 
-	private IEnumerator LoadAll ()
+	private IEnumerator LoadAssets ()
 	{
-		yield return new WaitForSeconds(1);
+		float progressRate = 1.0f / UIData.UI_MANAGER_PREFABS.Count;
+
+		// load UI prefabs
+		foreach(KeyValuePair<UIPrefabKeys, string> overlayName in UIData.UI_MANAGER_PREFABS)
+		{
+			m_fLoadingProgress += progressRate;
+			m_v2ProgressbarSizeDelta.x = m_fLoadingProgress * m_fProgressbarMaxWidth;
+			m_rtProgressbar.sizeDelta = m_v2ProgressbarSizeDelta;
+
+			Object loadObj = Resources.Load ("Prefabs/" + overlayName.Value);
+
+			if(loadObj != null)
+			{
+				GameObject obj = Instantiate (loadObj) as GameObject;
+				UIStateMachine.Instance.AddUIManager (obj.transform);
+				obj.GetComponent<IDisplaySwitch>().Close ();
+			}
+			else
+			{
+				Debug.LogError (overlayName.Value + " prefab missing.");
+			}
+
+			yield return new WaitForSeconds (0.5f);
+		}
+
+		// load game objects
+
 		FinishLoading ();
 	}
 
@@ -85,9 +116,12 @@ public class LoadGameManager : MonoSingleton <LoadGameManager>
 		m_v2ProgressbarSizeDelta = m_rtProgressbar.sizeDelta;
 		m_fProgressbarMaxWidth = m_v2ProgressbarSizeDelta.x;
 
+		m_v2ProgressbarSizeDelta.x = 0.0f;
+		m_rtProgressbar.sizeDelta = m_v2ProgressbarSizeDelta;
+
 		IsLoadingAssets = true;
-		m_objProgressbar.SetActive(true);
-		StartCoroutine("SimpleLoadTextAnimation");
+		m_objProgressbar.SetActive (true);
+		StartCoroutine ("SimpleLoadTextAnimation");
 	}
 
 	public void FinishLoading ()
@@ -96,8 +130,8 @@ public class LoadGameManager : MonoSingleton <LoadGameManager>
 		m_v2ProgressbarSizeDelta.x = m_fProgressbarMaxWidth;
 		m_rtProgressbar.sizeDelta = m_v2ProgressbarSizeDelta;
 		
-		StopCoroutine("SimpleLoadTextAnimation");
+		StopCoroutine ("SimpleLoadTextAnimation");
 		IsLoadingAssets = false;
-		m_objProgressbar.SetActive(false);
+		m_objProgressbar.SetActive (false);
 	}
 }
