@@ -15,13 +15,13 @@ public class ScaleSprite : MonoBehaviour
 	{
 		if(m_spriteToScale == null)
 		{
-			Debug.LogError("ScaleSprite: No reference to m_spriteToScale!");
+			Debug.LogError ("ScaleSprite: No reference to m_spriteToScale!");
 		}
 	}
 
 	protected void Start () 
 	{
-		FitToScreen();
+		FitToScreen ();
 	}
 
 	private void FitToScreen ()
