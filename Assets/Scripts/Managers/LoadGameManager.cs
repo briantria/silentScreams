@@ -80,32 +80,80 @@ public class LoadGameManager : MonoSingleton <LoadGameManager>
 
 	private IEnumerator LoadAssets ()
 	{
-		float progressRate = 1.0f / UIData.UI_MANAGER_PREFABS.Count;
+		float 	objTotalCount  = UIData.UI_MANAGER_PREFABS.Count;
+				objTotalCount += UIData.UI_BUTTON_PREFABS.Count;
+				objTotalCount += GameData.GAME_MANAGER_PREFABS.Count;
+
+		float progressRate = 1.0f / objTotalCount;
 
 		// load UI prefabs
-		foreach(KeyValuePair<UIPrefabKeys, string> overlayName in UIData.UI_MANAGER_PREFABS)
+		foreach(KeyValuePair<UIManagerKeys, string> overlayName in UIData.UI_MANAGER_PREFABS)
 		{
 			m_fLoadingProgress += progressRate;
 			m_v2ProgressbarSizeDelta.x = m_fLoadingProgress * m_fProgressbarMaxWidth;
 			m_rtProgressbar.sizeDelta = m_v2ProgressbarSizeDelta;
 
-			Object loadObj = Resources.Load ("Prefabs/" + overlayName.Value);
+			Object loadObj = Resources.Load ("Prefabs/UIManagers/" + overlayName.Value);
 
 			if(loadObj != null)
 			{
 				GameObject obj = Instantiate (loadObj) as GameObject;
-				UIStateMachine.Instance.AddUIManager (obj.transform);
-				obj.GetComponent<IDisplaySwitch>().Close ();
+				UIStateMachine.Instance.AddUIManager (obj.GetComponent<RectTransform>());
+				obj.GetComponent<DisplayManager>().Close ();
 			}
 			else
 			{
 				Debug.LogError (overlayName.Value + " prefab missing.");
 			}
 
-			yield return new WaitForSeconds (0.5f);
+			yield return new WaitForSeconds (0.05f);
 		}
 
-		// load game objects
+		// load common buttons
+		foreach(KeyValuePair<UICommonButtonKeys, string> buttonName in UIData.UI_BUTTON_PREFABS)
+		{
+			m_fLoadingProgress += progressRate;
+			m_v2ProgressbarSizeDelta.x = m_fLoadingProgress * m_fProgressbarMaxWidth;
+			m_rtProgressbar.sizeDelta = m_v2ProgressbarSizeDelta;
+			
+			Object loadObj = Resources.Load ("Prefabs/Buttons/" + buttonName.Value);
+			
+			if(loadObj != null)
+			{
+				GameObject obj = Instantiate (loadObj) as GameObject;
+				UIStateMachine.Instance.AddUIManager (obj.GetComponent<RectTransform>());
+				obj.GetComponent<DisplayManager>().Close ();
+			}
+			else
+			{
+				Debug.LogError (buttonName.Value + " prefab missing.");
+			}
+			
+			yield return new WaitForSeconds (0.05f);
+		}
+
+		// load game objects/managers
+		foreach(KeyValuePair<GameManagerKeys, string> gameManagerName in GameData.GAME_MANAGER_PREFABS)
+		{
+			m_fLoadingProgress += progressRate;
+			m_v2ProgressbarSizeDelta.x = m_fLoadingProgress * m_fProgressbarMaxWidth;
+			m_rtProgressbar.sizeDelta = m_v2ProgressbarSizeDelta;
+			
+			Object loadObj = Resources.Load ("Prefabs/GameManagers/" + gameManagerName.Value);
+			
+			if(loadObj != null)
+			{
+				GameObject obj = Instantiate (loadObj) as GameObject;
+				GameStateMachine.Instance.AddGameObject (obj.transform);
+				obj.GetComponent<DisplayManager>().Close ();
+			}
+			else
+			{
+				Debug.LogError (gameManagerName.Value + " prefab missing.");
+			}
+			
+			yield return new WaitForSeconds (0.05f);
+		}
 
 		FinishLoading ();
 	}

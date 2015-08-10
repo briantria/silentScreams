@@ -1,21 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameHUDManager : MonoSingleton <GameHUDManager>, IDisplaySwitch
+public class GameHUDManager : MonoSingleton <GameHUDManager>
 {
-	#region IDisplaySwitch implementation
+	private DisplayManager m_displayManager;
+	
+	protected override void Awake ()
+	{
+		base.Awake ();
+		m_displayManager = this.GetComponent<DisplayManager>();
+	}
+	
 	public void Open ()
 	{
-		this.gameObject.SetActive (true);
+		m_displayManager.Open();
 	}
+	
 	public void Close ()
 	{
-		this.gameObject.SetActive (false);
-	}
-	#endregion
-
-	public void OnClickPause ()
-	{
-
+		m_displayManager.Close ();
 	}
 }

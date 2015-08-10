@@ -7,22 +7,30 @@
 using UnityEngine;
 using System.Collections;
 
-public class TitleScreenManager : MonoSingleton<TitleScreenManager>, IDisplaySwitch
+public class TitleScreenManager : MonoSingleton<TitleScreenManager>
 {
-	#region IDisplaySwitch implementation
+	private DisplayManager m_displayManager;
+
+	protected override void Awake ()
+	{
+		base.Awake ();
+		m_displayManager = this.GetComponent<DisplayManager>();
+	}
+
 	public void Open ()
 	{
-		this.gameObject.SetActive (true);
+		m_displayManager.Open();
 	}
+
 	public void Close ()
 	{
-		this.gameObject.SetActive (false);
+		m_displayManager.Close ();
 	}
-	#endregion
 
 	public void OnClickPlay ()
 	{
 		Close ();
-		GameHUDManager.Instance.Open ();
+		UIStateMachine.Instance.ChangeUIState (UIState.OnGameScreen);
+		GameStateMachine.Instance.ChangeGameState (GameState.Start);
 	}
 }

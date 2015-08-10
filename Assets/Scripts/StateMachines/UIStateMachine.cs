@@ -27,12 +27,16 @@ public class UIStateMachine : MonoSingleton <UIStateMachine>
 		switch(p_uiState){
 		case UIState.OnTitleScreen:
 		{
+			GameHUDManager.Instance.Close ();
+			ButtonPause.Instance.Close ();
 			TitleScreenManager.Instance.Open ();
 			break;
 		}
 		case UIState.OnGameScreen:
 		{
+			TitleScreenManager.Instance.Close();
 			GameHUDManager.Instance.Open ();
+			ButtonPause.Instance.Open ();
 			break;
 		}}
 
@@ -42,15 +46,19 @@ public class UIStateMachine : MonoSingleton <UIStateMachine>
 		}
 	}
 
-	public void AddUIManager (Transform p_manager)
+	public void AddUIManager (RectTransform p_manager)
 	{
 		p_manager.SetParent(m_rtUIContainer);
 		p_manager.localScale = Vector3.one;
+		p_manager.offsetMax = Vector2.zero;
+		p_manager.offsetMin = Vector2.zero;
 	}
 }
 
 public enum UIState
 {
 	OnTitleScreen,
-	OnGameScreen
+	OnGameScreen,
+	OnResultsScreen,
+	OnSettings
 }
