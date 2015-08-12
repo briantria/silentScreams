@@ -19,7 +19,16 @@ public class GameStateMachine : MonoSingleton <GameStateMachine>
 		switch(p_gameState){
 		case GameState.Start:
 		{
+			LevelManager.Instance.Open ();
+			LevelManager.Instance.OpenCurrentLevel ();
 			CrimeSceneManager.Instance.Open ();
+			break;
+		}
+		case GameState.Exit:
+		{
+			LevelManager.Instance.CloseCurrentLevel ();
+			LevelManager.Instance.Close ();
+			CrimeSceneManager.Instance.Close ();
 			break;
 		}
 		default: // GameState.Running
@@ -33,11 +42,11 @@ public class GameStateMachine : MonoSingleton <GameStateMachine>
 		}
 	}
 
-	public void AddGameObject (Transform m_gameManager)
+	public void AddGameObject (Transform p_gameManager)
 	{
-		m_gameManager.SetParent(this.transform);
-		m_gameManager.localPosition = Vector3.zero;
-		m_gameManager.localScale = Vector3.one;
+		p_gameManager.SetParent(this.transform);
+		p_gameManager.localPosition = Vector3.zero;
+		p_gameManager.localScale = Vector3.one;
 	}
 }
 

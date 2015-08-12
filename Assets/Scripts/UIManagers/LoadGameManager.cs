@@ -83,11 +83,12 @@ public class LoadGameManager : MonoSingleton <LoadGameManager>
 		float 	objTotalCount  = UIData.UI_MANAGER_PREFABS.Count;
 				objTotalCount += UIData.UI_BUTTON_PREFABS.Count;
 				objTotalCount += GameData.GAME_MANAGER_PREFABS.Count;
+				objTotalCount += GameData.TOTAL_LEVEL_COUNT;
 
 		float progressRate = 1.0f / objTotalCount;
 
-		// load UI prefabs
-		foreach(KeyValuePair<UIManagerKeys, string> overlayName in UIData.UI_MANAGER_PREFABS)
+		#region LOAD UI PREFABS
+		foreach (KeyValuePair<UIManagerKeys, string> overlayName in UIData.UI_MANAGER_PREFABS)
 		{
 			m_fLoadingProgress += progressRate;
 			m_v2ProgressbarSizeDelta.x = m_fLoadingProgress * m_fProgressbarMaxWidth;
@@ -108,9 +109,10 @@ public class LoadGameManager : MonoSingleton <LoadGameManager>
 
 			yield return new WaitForSeconds (0.05f);
 		}
+		#endregion
 
-		// load common buttons
-		foreach(KeyValuePair<UICommonButtonKeys, string> buttonName in UIData.UI_BUTTON_PREFABS)
+		#region LOAD COMMON BUTTONS
+		foreach (KeyValuePair<UICommonButtonKeys, string> buttonName in UIData.UI_BUTTON_PREFABS)
 		{
 			m_fLoadingProgress += progressRate;
 			m_v2ProgressbarSizeDelta.x = m_fLoadingProgress * m_fProgressbarMaxWidth;
@@ -131,9 +133,10 @@ public class LoadGameManager : MonoSingleton <LoadGameManager>
 			
 			yield return new WaitForSeconds (0.05f);
 		}
+		#endregion
 
-		// load game objects/managers
-		foreach(KeyValuePair<GameManagerKeys, string> gameManagerName in GameData.GAME_MANAGER_PREFABS)
+		#region LOAD GAME MANAGERS
+		foreach (KeyValuePair<GameManagerKeys, string> gameManagerName in GameData.GAME_MANAGER_PREFABS)
 		{
 			m_fLoadingProgress += progressRate;
 			m_v2ProgressbarSizeDelta.x = m_fLoadingProgress * m_fProgressbarMaxWidth;
@@ -154,6 +157,31 @@ public class LoadGameManager : MonoSingleton <LoadGameManager>
 			
 			yield return new WaitForSeconds (0.05f);
 		}
+		#endregion
+
+		#region LOAD LEVELS
+		for (int levelIDX = 0; levelIDX < GameData.TOTAL_LEVEL_COUNT; ++levelIDX)
+		{
+			m_fLoadingProgress += progressRate;
+			m_v2ProgressbarSizeDelta.x = m_fLoadingProgress * m_fProgressbarMaxWidth;
+			m_rtProgressbar.sizeDelta = m_v2ProgressbarSizeDelta;
+
+			Object loadObj = Resources.Load ("Prefabs/Levels/Level_" + levelIDX);
+
+			if(loadObj != null)
+			{
+				GameObject objLevel = Instantiate (loadObj) as GameObject;
+				LevelManager.Instance.AddLevel (objLevel.transform);
+			}
+			else
+			{
+				Debug.LogError ("Level_" + levelIDX + " prefab missing.");
+
+				// levels shouldn't skip
+				break;
+			}
+		}
+		#endregion
 
 		FinishLoading ();
 	}

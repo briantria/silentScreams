@@ -7,23 +7,33 @@
 using UnityEngine;
 using System.Collections;
 
-public class CrimeSceneManager : MonoSingleton <CrimeSceneManager>
+public class TitleScreenManager : MonoSingleton<TitleScreenManager>
 {
 	private DisplayManager m_displayManager;
-	
+
 	protected override void Awake ()
 	{
 		base.Awake ();
 		m_displayManager = this.GetComponent<DisplayManager>();
 	}
-	
+
 	public void Open ()
 	{
 		m_displayManager.Open();
 	}
-	
+
 	public void Close ()
 	{
 		m_displayManager.Close ();
+	}
+
+	public void OnClickPlay ()
+	{
+		Close ();
+		
+		LevelManager.Instance.CurrentLevel = 0;
+
+		UIStateMachine.Instance.ChangeUIState (UIState.OnGameScreen);
+		GameStateMachine.Instance.ChangeGameState (GameState.Start);
 	}
 }

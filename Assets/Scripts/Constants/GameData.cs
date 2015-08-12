@@ -13,10 +13,12 @@ public static class GameData
 	public static readonly Dictionary<GameManagerKeys, string> GAME_MANAGER_PREFABS = new Dictionary<GameManagerKeys, string>
 	{
 		{GameManagerKeys.CrimeScene, "CrimeSceneManager"},
-		{GameManagerKeys.Smartphone, "SmartphoneManager"},
-		{GameManagerKeys.EvidenceBox, "EvidenceBoxManager"},
+//		{GameManagerKeys.Smartphone, "SmartphoneManager"},
+//		{GameManagerKeys.EvidenceBox, "EvidenceBoxManager"},
 		{GameManagerKeys.Level, "LevelManager"},
 	};
+
+	public const int TOTAL_LEVEL_COUNT = 1;
 }
 
 public enum GameManagerKeys

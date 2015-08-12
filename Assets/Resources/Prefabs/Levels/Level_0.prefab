@@ -25,7 +25,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 452318}
   m_Layer: 0
-  m_Name: Level01
+  m_Name: Level_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ GameObject:
   - 4: {fileID: 440442}
   - 114: {fileID: 11450840}
   m_Layer: 0
-  m_Name: Evidence01
+  m_Name: Evidence_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,7 +228,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: Evidence_0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 170908}
