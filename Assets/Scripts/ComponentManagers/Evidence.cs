@@ -40,6 +40,7 @@ public class Evidence : MonoBehaviour
 
 	protected void Update () 
 	{
+		if (GameStateMachine.Instance.IsGamePaused) { return; }
 		if (!m_bFollowPointer) { return; }
 
 		Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

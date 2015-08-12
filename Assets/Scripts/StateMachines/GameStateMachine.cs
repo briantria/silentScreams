@@ -10,6 +10,7 @@ using System.Collections;
 public class GameStateMachine : MonoSingleton <GameStateMachine> 
 {
 	public GameState State { get; set; }
+	public bool IsGamePaused { get; set; }
 
 	public delegate void UpdateGameState (GameState p_uiState);
 	public static event UpdateGameState OnChangeGameState;
@@ -19,13 +20,15 @@ public class GameStateMachine : MonoSingleton <GameStateMachine>
 		switch(p_gameState){
 		case GameState.Start:
 		{
+			IsGamePaused = false;
+			CrimeSceneManager.Instance.Open ();
 			LevelManager.Instance.Open ();
 			LevelManager.Instance.OpenCurrentLevel ();
-			CrimeSceneManager.Instance.Open ();
 			break;
 		}
 		case GameState.Exit:
 		{
+			IsGamePaused = false;
 			LevelManager.Instance.CloseCurrentLevel ();
 			LevelManager.Instance.Close ();
 			CrimeSceneManager.Instance.Close ();

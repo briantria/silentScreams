@@ -29,6 +29,7 @@ public class ButtonPause : MonoSingleton <ButtonPause>
 
 	public void OnClickPause ()
 	{
+		GameStateMachine.Instance.IsGamePaused = true;
 		SettingsManager.Instance.Open ();
 	}
 }

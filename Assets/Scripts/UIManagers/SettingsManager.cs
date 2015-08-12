@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * Brian Tria
+ * Aug 12, 2015
+ * 
+ */
+
+using UnityEngine;
 using System.Collections;
 
 public class SettingsManager : MonoSingleton <SettingsManager> 
@@ -25,6 +31,7 @@ public class SettingsManager : MonoSingleton <SettingsManager>
 	public void OnClickResume ()
 	{
 		Close ();
+		GameStateMachine.Instance.IsGamePaused = false;
 	}
 
 	public void OnClickExitToMenu ()
