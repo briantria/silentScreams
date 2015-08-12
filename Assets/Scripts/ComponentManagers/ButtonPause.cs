@@ -29,6 +29,6 @@ public class ButtonPause : MonoSingleton <ButtonPause>
 
 	public void OnClickPause ()
 	{
-
+		SettingsManager.Instance.Open ();
 	}
 }
