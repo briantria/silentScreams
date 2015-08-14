@@ -16,6 +16,9 @@ public class Evidence : MonoBehaviour
 	private float m_fAudioAreaTrigger;
 	private bool m_bFollowPointer;
 	private Vector2 m_v2InitPosition;
+	private Vector2 m_v2CurrPosition;
+
+	public bool Selected { get; set; }
 
 	protected void OnEnable ()
 	{
@@ -29,13 +32,15 @@ public class Evidence : MonoBehaviour
 
 	protected void Awake ()
 	{
-		m_v2InitPosition = this.transform.position;
+		m_v2InitPosition = m_v2CurrPosition = this.transform.position;
 		m_audioSource.mute = false;
 		m_fInitVolume = m_audioSource.volume;
 		
 		float imgSizeX = m_image.bounds.size.x * m_image.transform.localScale.x;
 		float imgSizeY = m_image.bounds.size.y * m_image.transform.localScale.x;
 		m_fAudioAreaTrigger = Mathf.Max(imgSizeX, imgSizeY) * 5;
+
+		Selected = false;
 	}
 
 	protected void Update () 
@@ -44,10 +49,11 @@ public class Evidence : MonoBehaviour
 		if (!m_bFollowPointer) { return; }
 
 		Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		float sqrMagnitude = (m_v2InitPosition - mousePosition).sqrMagnitude;
+		float sqrMagnitude = (m_v2CurrPosition - mousePosition).sqrMagnitude;
 
 		if(sqrMagnitude <= m_fAudioAreaTrigger)
 		{
+			CheckSelectionStatus ();
 			m_audioSource.mute = false;
 
 			float 	computedVolume  = 1.0f - (sqrMagnitude / m_fAudioAreaTrigger); // closer to object; louder sound
@@ -65,6 +71,27 @@ public class Evidence : MonoBehaviour
 			m_audioSource.Stop();
 			m_audioSource.mute = true;
 		}
+	}
+
+	private void CheckSelectionStatus ()
+	{
+		if (Input.GetMouseButtonUp (0))
+		{
+			m_audioSource.Stop();
+			Selected = !Selected;
+		}
+
+		if (Selected)
+		{
+			EvidenceBoxManager.Instance.AddEvidence (this.transform);
+		}
+		else
+		{
+			EvidenceBoxManager.Instance.RemoveEvidence (this.transform);
+			this.transform.localPosition = m_v2InitPosition;
+		}
+
+		m_v2CurrPosition = this.transform.localPosition;
 	}
 
 	private void UpdateGameState (GameState p_gameState)

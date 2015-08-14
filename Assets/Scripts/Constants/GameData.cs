@@ -14,7 +14,7 @@ public static class GameData
 	{
 		{GameManagerKeys.CrimeScene, "CrimeSceneManager"},
 //		{GameManagerKeys.Smartphone, "SmartphoneManager"},
-//		{GameManagerKeys.EvidenceBox, "EvidenceBoxManager"},
+		{GameManagerKeys.EvidenceBox, "EvidenceBoxManager"},
 		{GameManagerKeys.Level, "LevelManager"},
 	};
 

@@ -10,6 +10,7 @@ using System.Collections;
 public class LevelManager : MonoSingleton <LevelManager>
 {
 	private DisplayManager m_displayManager;
+	private Transform m_evidenceContainer;
 	
 	public int CurrentLevel { get; set; }
 	
@@ -35,6 +36,14 @@ public class LevelManager : MonoSingleton <LevelManager>
 		p_level.localPosition = Vector3.zero;
 		p_level.localScale = Vector3.one;
 		p_level.gameObject.SetActive (false);
+
+		m_evidenceContainer = p_level;
+	}
+
+	public void AddEvidence (Transform p_evidence)
+	{
+		p_evidence.SetParent (m_evidenceContainer);
+		p_evidence.localScale = Vector3.one;
 	}
 	
 	public void OpenCurrentLevel ()

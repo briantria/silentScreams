@@ -10,6 +10,7 @@ using System.Collections;
 public class BgmManager : MonoSingleton <BgmManager>
 {
 	private AudioSource m_audioSource;
+	private float m_fInitVolume;
 
 	private AudioClip   m_mainBGM;
 	private AudioClip   m_endGameBGM;
@@ -33,9 +34,12 @@ public class BgmManager : MonoSingleton <BgmManager>
 	{
 		base.Awake ();
 
-		m_audioSource  = this.GetComponent<AudioSource> ();
-		m_mainBGM      = Resources.Load (SOUND_BGM_PATH + "DanseMacabre/Danse Macabre") as AudioClip;
-		m_endGameBGM   = Resources.Load (SOUND_BGM_PATH + "DanseMacabre/Danse Macabre - Finale") as AudioClip;
+		m_audioSource = this.GetComponent<AudioSource> ();
+		m_audioSource.ignoreListenerVolume = true;
+		m_fInitVolume = m_audioSource.volume;
+
+		m_mainBGM    = Resources.Load (SOUND_BGM_PATH + "DanseMacabre/Danse Macabre") as AudioClip;
+		m_endGameBGM = Resources.Load (SOUND_BGM_PATH + "DanseMacabre/Danse Macabre - Finale") as AudioClip;
 
 		m_arrayGameBGM = new AudioClip[]
 		{
@@ -110,10 +114,19 @@ public class BgmManager : MonoSingleton <BgmManager>
 			{
 				m_audioSource.clip = m_arrayGameBGM [Random.Range (0, m_arrayGameBGM.Length)];
 				m_audioSource.Play ();
-				//yield return new WaitForSeconds (1.0f);
 			}
 
 			yield return new WaitForSeconds (1.0f);
+		}
+	}
+
+	public void SetBGMVolume (float p_fVolume)
+	{
+		p_fVolume = Mathf.Clamp (p_fVolume, 0.0f, 1.0f);
+
+		if(!m_audioSource.mute)
+		{
+			m_audioSource.volume = m_fInitVolume * p_fVolume;
 		}
 	}
 }
