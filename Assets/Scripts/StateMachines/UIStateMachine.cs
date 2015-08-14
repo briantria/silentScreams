@@ -27,6 +27,7 @@ public class UIStateMachine : MonoSingleton <UIStateMachine>
 		switch(p_uiState){
 		case UIState.OnTitleScreen:
 		{
+			ResultManager.Instance.Close ();
 			GameHUDManager.Instance.Close ();
 			ButtonPause.Instance.Close ();
 			TitleScreenManager.Instance.Open ();
@@ -37,6 +38,11 @@ public class UIStateMachine : MonoSingleton <UIStateMachine>
 			TitleScreenManager.Instance.Close();
 			GameHUDManager.Instance.Open ();
 			ButtonPause.Instance.Open ();
+			break;
+		}
+		case UIState.OnResultsScreen:
+		{
+			ResultManager.Instance.Open ();
 			break;
 		}}
 

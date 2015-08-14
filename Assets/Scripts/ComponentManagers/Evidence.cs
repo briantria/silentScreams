@@ -9,6 +9,7 @@ using System.Collections;
 
 public class Evidence : MonoBehaviour 
 {
+	[SerializeField] private int m_iScore;
 	[SerializeField] private SpriteRenderer m_image;
 	[SerializeField] private AudioSource m_audioSource;
 
@@ -18,6 +19,7 @@ public class Evidence : MonoBehaviour
 	private Vector2 m_v2InitPosition;
 	private Vector2 m_v2CurrPosition;
 
+	public int Score { get { return m_iScore; }}
 	public bool Selected { get; set; }
 
 	protected void OnEnable ()

@@ -31,6 +31,14 @@ public class GameStateMachine : MonoSingleton <GameStateMachine>
 			EvidenceBoxManager.Instance.Open ();
 			break;
 		}
+		case GameState.Reset:
+		{
+			IsGamePaused = false;
+			EvidenceBoxManager.Instance.Reset ();
+			EvidenceBoxManager.Instance.Close ();
+			GameHUDManager.Instance.Reset ();
+			break;
+		}
 		case GameState.Exit:
 		{
 			IsGamePaused = false;
@@ -43,6 +51,7 @@ public class GameStateMachine : MonoSingleton <GameStateMachine>
 		}
 		default: // GameState.Running
 		{
+			IsGamePaused = false;
 			EvidenceBoxManager.Instance.Close ();
 
 			break;

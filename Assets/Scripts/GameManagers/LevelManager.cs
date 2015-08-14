@@ -49,7 +49,7 @@ public class LevelManager : MonoSingleton <LevelManager>
 	public void OpenCurrentLevel ()
 	{
 		this.transform.GetChild(CurrentLevel).gameObject.SetActive (true);
-		GameStateMachine.Instance.ChangeGameState (GameState.Running);
+		//GameStateMachine.Instance.ChangeGameState (GameState.Running);
 	}
 
 	public void CloseCurrentLevel ()

@@ -78,6 +78,7 @@ public class BgmManager : MonoSingleton <BgmManager>
 	private void UpdateGameState (GameState p_gameState)
 	{
 		switch (p_gameState){
+		case GameState.Reset:
 		case GameState.Start:
 		{
 			m_audioSource.loop = false;
@@ -89,6 +90,7 @@ public class BgmManager : MonoSingleton <BgmManager>
 			}
 
 			StartCoroutine ("PlayRandomGameBGM");
+			GameStateMachine.Instance.ChangeGameState (GameState.Running);
 			break;
 		}
 		case GameState.Result:

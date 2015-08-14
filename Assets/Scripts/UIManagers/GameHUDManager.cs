@@ -24,6 +24,11 @@ public class GameHUDManager : MonoSingleton <GameHUDManager>
 		m_displayManager.Close ();
 	}
 
+	public void Reset ()
+	{
+		m_bToggleEvidenceBox = false;
+	}
+
 	public void OnClickEvidenceBox ()
 	{
 		m_bToggleEvidenceBox = !m_bToggleEvidenceBox;

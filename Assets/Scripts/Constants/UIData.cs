@@ -13,7 +13,7 @@ public static class UIData
 		{UIManagerKeys.Title, "TitleScreenManager"},
 		{UIManagerKeys.GameHUD, "GameHUDManager"},
 		{UIManagerKeys.Settings, "SettingsManager"},
-//		{UIManagerKeys.GameResults, "GameResultsManager"},
+		{UIManagerKeys.GameResults, "ResultManager"},
 //		{UIManagerKeys.GamePause, "GamePauseManager"},
 //		{UIPrefabKeys.GenericPrompt, "TitleScreen"},
 //		{UIPrefabKeys.GenericConfirm, "TitleScreen"}
