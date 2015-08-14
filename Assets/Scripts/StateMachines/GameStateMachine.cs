@@ -34,6 +34,8 @@ public class GameStateMachine : MonoSingleton <GameStateMachine>
 		case GameState.Exit:
 		{
 			IsGamePaused = false;
+			EvidenceBoxManager.Instance.Reset ();
+			EvidenceBoxManager.Instance.Close ();
 			LevelManager.Instance.CloseCurrentLevel ();
 			LevelManager.Instance.Close ();
 			CrimeSceneManager.Instance.Close ();

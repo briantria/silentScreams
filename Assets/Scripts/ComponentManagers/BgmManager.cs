@@ -91,16 +91,6 @@ public class BgmManager : MonoSingleton <BgmManager>
 			StartCoroutine ("PlayRandomGameBGM");
 			break;
 		}
-//		case GameState.Running:
-//		{
-//			if(m_audioSource.isPlaying) { break; }
-//
-//			m_audioSource.clip = m_arrayGameBGM [Random.Range (0, m_arrayGameBGM.Length)];
-//			m_audioSource.Play ();
-//			StartCoroutine ("PlayRandomGameBGM");
-//
-//			break;
-//		}
 		case GameState.Result:
 		{
 			StopCoroutine ("PlayRandomGameBGM");

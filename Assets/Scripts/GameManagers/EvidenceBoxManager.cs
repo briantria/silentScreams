@@ -28,6 +28,15 @@ public class EvidenceBoxManager : MonoSingleton <EvidenceBoxManager>
 		m_displayManager.Close ();
 	}
 
+	public void Reset ()
+	{
+		for (int idx = m_evidenceContainer.childCount-1; idx >= 0; --idx)
+		{
+			m_evidenceContainer.GetChild(idx).GetComponent<Evidence>().Reset ();
+			//LevelManager.Instance.AddEvidence (m_evidenceContainer.GetChild (idx));
+		}
+	}
+
 	public void AddEvidence (Transform p_evidence)
 	{
 		p_evidence.SetParent (m_evidenceContainer);

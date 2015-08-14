@@ -243,6 +243,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 22325674, guid: 36ea5e4e8fc2ce84f967803c5a1935a5, type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1674515380}
     - target: {fileID: 139296, guid: 36ea5e4e8fc2ce84f967803c5a1935a5, type: 2}
       propertyPath: m_IsActive
       value: 0

@@ -13,10 +13,13 @@ public class DisplayManager : MonoBehaviour
 {
 	public void Open ()
 	{
+		if(this.gameObject.activeInHierarchy) { return; }
 		this.gameObject.SetActive (true);
 	}
+
 	public void Close ()
 	{
+		if(!this.gameObject.activeInHierarchy) { return; }
 		this.gameObject.SetActive (false);
 	}
 }

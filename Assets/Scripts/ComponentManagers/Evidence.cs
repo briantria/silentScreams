@@ -116,13 +116,27 @@ public class Evidence : MonoBehaviour
 		}
 		case GameState.Idle:
 		case GameState.Inactive:
-		case GameState.Reset:
 		case GameState.Result:
-		case GameState.Exit:
 		{
 			m_bFollowPointer = false;
 			m_audioSource.mute = false;
 			break;
+		}
+		case GameState.Reset:
+		case GameState.Exit:
+		{
+			//Reset ();
+			m_bFollowPointer = false;
+			m_audioSource.mute = false;
+			break;
 		}}
+	}
+
+	public void Reset ()
+	{
+		EvidenceBoxManager.Instance.RemoveEvidence (this.transform);
+		this.transform.localPosition = m_v2CurrPosition = m_v2InitPosition;
+		m_image.sortingOrder = 0;
+		Selected = false;
 	}
 }

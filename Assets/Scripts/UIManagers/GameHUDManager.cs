@@ -20,6 +20,7 @@ public class GameHUDManager : MonoSingleton <GameHUDManager>
 	
 	public void Close ()
 	{
+		m_bToggleEvidenceBox = false;
 		m_displayManager.Close ();
 	}
 
