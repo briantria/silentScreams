@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Brian Tria
  * Aug 10, 2015
  * 
@@ -77,21 +77,29 @@ public class Evidence : MonoBehaviour
 	{
 		if (Input.GetMouseButtonUp (0))
 		{
-			m_audioSource.Stop();
+			m_bFollowPointer = !m_bFollowPointer;
 			Selected = !Selected;
+			m_audioSource.Stop();
 		}
 
 		if (Selected)
 		{
 			EvidenceBoxManager.Instance.AddEvidence (this.transform);
+			m_image.sortingOrder = 1;
 		}
 		else
 		{
 			EvidenceBoxManager.Instance.RemoveEvidence (this.transform);
 			this.transform.localPosition = m_v2InitPosition;
+			m_image.sortingOrder = 0;
 		}
 
 		m_v2CurrPosition = this.transform.localPosition;
+	}
+
+	private void UpdateUIState (UIState p_uiState)
+	{
+
 	}
 
 	private void UpdateGameState (GameState p_gameState)
@@ -100,8 +108,12 @@ public class Evidence : MonoBehaviour
 		case GameState.Start:
 		case GameState.Running:
 		{
-			m_bFollowPointer = true;
-
+			m_bFollowPointer = !Selected;
+			break;
+		}
+		case GameState.EvidenceBox:
+		{
+			m_bFollowPointer = Selected;
 			break;
 		}
 		case GameState.Idle:
@@ -112,7 +124,6 @@ public class Evidence : MonoBehaviour
 		{
 			m_bFollowPointer = false;
 			m_audioSource.mute = false;
-
 			break;
 		}}
 	}

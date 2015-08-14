@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Brian Tria
  * Aug 14, 2015
  * 
@@ -78,12 +78,12 @@ public class BgmManager : MonoSingleton <BgmManager>
 	private void UpdateGameState (GameState p_gameState)
 	{
 		switch (p_gameState){
-		case GameState.Running:
+		case GameState.Start:
 		{
 			m_audioSource.loop = false;
 			m_audioSource.clip = m_arrayGameBGM [Random.Range (0, m_arrayGameBGM.Length)];
 
-			if(!m_audioSource.isPlaying)
+			if(!m_audioSource.isPlaying) 
 			{
 				m_audioSource.Play ();
 			}
@@ -91,6 +91,16 @@ public class BgmManager : MonoSingleton <BgmManager>
 			StartCoroutine ("PlayRandomGameBGM");
 			break;
 		}
+//		case GameState.Running:
+//		{
+//			if(m_audioSource.isPlaying) { break; }
+//
+//			m_audioSource.clip = m_arrayGameBGM [Random.Range (0, m_arrayGameBGM.Length)];
+//			m_audioSource.Play ();
+//			StartCoroutine ("PlayRandomGameBGM");
+//
+//			break;
+//		}
 		case GameState.Result:
 		{
 			StopCoroutine ("PlayRandomGameBGM");

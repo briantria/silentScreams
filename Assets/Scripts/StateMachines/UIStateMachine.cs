@@ -12,6 +12,8 @@ public class UIStateMachine : MonoSingleton <UIStateMachine>
 {
 	[SerializeField] private RectTransform m_rtUIContainer;
 
+	private bool m_bEvidenceBoxEnabled;
+
 	public delegate void UpdateUIState (UIState p_uiState);
 	public static event UpdateUIState OnChangeUIState;
 
@@ -20,6 +22,7 @@ public class UIStateMachine : MonoSingleton <UIStateMachine>
 	protected override void Awake ()
 	{
 		base.Awake ();
+		m_bEvidenceBoxEnabled = false;
 	}
 
 	public void ChangeUIState (UIState p_uiState)
@@ -27,6 +30,9 @@ public class UIStateMachine : MonoSingleton <UIStateMachine>
 		switch(p_uiState){
 		case UIState.OnTitleScreen:
 		{
+			m_bEvidenceBoxEnabled = false;
+			EvidenceBoxManager.Instance.Close ();
+
 			GameHUDManager.Instance.Close ();
 			ButtonPause.Instance.Close ();
 			TitleScreenManager.Instance.Open ();

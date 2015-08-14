@@ -26,6 +26,11 @@ public class GameStateMachine : MonoSingleton <GameStateMachine>
 			LevelManager.Instance.OpenCurrentLevel ();
 			break;
 		}
+		case GameState.EvidenceBox:
+		{
+			EvidenceBoxManager.Instance.Open ();
+			break;
+		}
 		case GameState.Exit:
 		{
 			IsGamePaused = false;
@@ -36,6 +41,8 @@ public class GameStateMachine : MonoSingleton <GameStateMachine>
 		}
 		default: // GameState.Running
 		{
+			EvidenceBoxManager.Instance.Close ();
+
 			break;
 		}}
 
@@ -59,6 +66,7 @@ public enum GameState
 	Idle, // waiting for user input
 	Start,
 	Running,
+	EvidenceBox,
 	Reset,
 	Result,
 	Exit
