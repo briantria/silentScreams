@@ -54,7 +54,6 @@ public class ResultManager : MonoSingleton <ResultManager>
 
 	public void OnClickExit ()
 	{
-		
 		UIStateMachine.Instance.ChangeUIState (UIState.OnTitleScreen);
 		GameStateMachine.Instance.ChangeGameState (GameState.Exit);
 	}

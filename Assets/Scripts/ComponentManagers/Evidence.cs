@@ -47,14 +47,21 @@ public class Evidence : MonoBehaviour
 
 	protected void Update () 
 	{
+		//Debug.Log("EVIDENCE!");
+
 		if (GameStateMachine.Instance.IsGamePaused) { return; }
+		//Debug.Log("NOT PAUSED!");
+		//Debug.Log("m_bFollowPointer: " + m_bFollowPointer);
 		if (!m_bFollowPointer) { return; }
+
+		//Debug.Log("FOLLOW POINTER");
 
 		Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		float sqrMagnitude = (m_v2CurrPosition - mousePosition).sqrMagnitude;
 
 		if(sqrMagnitude <= m_fAudioAreaTrigger)
 		{
+			//Debug.Log("PLAY!");
 			m_audioSource.mute = false;
 
 			float 	computedVolume  = 1.0f - (sqrMagnitude / m_fAudioAreaTrigger); // closer to object; louder sound
@@ -71,6 +78,7 @@ public class Evidence : MonoBehaviour
 		}
 		else
 		{
+			//Debug.Log("NO PLAY!");
 			m_audioSource.Stop();
 			m_audioSource.mute = true;
 		}
@@ -109,11 +117,13 @@ public class Evidence : MonoBehaviour
 		case GameState.Running:
 		{
 			m_bFollowPointer = !Selected;
+			//Debug.Log("[RUNNING] m_bFollowPointer: " + m_bFollowPointer);
 			break;
 		}
 		case GameState.EvidenceBox:
 		{
 			m_bFollowPointer = Selected;
+			//Debug.Log("[EVIDENCE] m_bFollowPointer: " + m_bFollowPointer);
 			break;
 		}
 		case GameState.Idle:
@@ -122,14 +132,20 @@ public class Evidence : MonoBehaviour
 		{
 			m_bFollowPointer = false;
 			m_audioSource.mute = false;
+			//Debug.Log("[RESULT] m_bFollowPointer: " + m_bFollowPointer);
 			break;
 		}
 		case GameState.Reset:
+		{
+			m_bFollowPointer = true;
+			break;
+		}
 		case GameState.Exit:
 		{
 			//Reset ();
 			m_bFollowPointer = false;
 			m_audioSource.mute = false;
+			//Debug.Log("[RESET / EXIT] m_bFollowPointer: " + m_bFollowPointer);
 			break;
 		}}
 	}
