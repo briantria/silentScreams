@@ -53,7 +53,6 @@ public class Evidence : MonoBehaviour
 
 		if(sqrMagnitude <= m_fAudioAreaTrigger)
 		{
-			CheckSelectionStatus ();
 			m_audioSource.mute = false;
 
 			float 	computedVolume  = 1.0f - (sqrMagnitude / m_fAudioAreaTrigger); // closer to object; louder sound
@@ -65,6 +64,8 @@ public class Evidence : MonoBehaviour
 			{
 				m_audioSource.Play();
 			}
+
+			CheckSelectionStatus ();
 		}
 		else
 		{
@@ -77,29 +78,26 @@ public class Evidence : MonoBehaviour
 	{
 		if (Input.GetMouseButtonUp (0))
 		{
-			m_bFollowPointer = !m_bFollowPointer;
-			Selected = !Selected;
+			m_bFollowPointer = false;
+			m_audioSource.mute = true;
 			m_audioSource.Stop();
+
+			Selected = !Selected;
+
+			if (Selected)
+			{
+				EvidenceBoxManager.Instance.AddEvidence (this.transform);
+				m_image.sortingOrder = 1;
+			}
+			else
+			{
+				EvidenceBoxManager.Instance.RemoveEvidence (this.transform);
+				this.transform.localPosition = m_v2InitPosition;
+				m_image.sortingOrder = 0;
+			}
+			
+			m_v2CurrPosition = this.transform.localPosition;
 		}
-
-		if (Selected)
-		{
-			EvidenceBoxManager.Instance.AddEvidence (this.transform);
-			m_image.sortingOrder = 1;
-		}
-		else
-		{
-			EvidenceBoxManager.Instance.RemoveEvidence (this.transform);
-			this.transform.localPosition = m_v2InitPosition;
-			m_image.sortingOrder = 0;
-		}
-
-		m_v2CurrPosition = this.transform.localPosition;
-	}
-
-	private void UpdateUIState (UIState p_uiState)
-	{
-
 	}
 
 	private void UpdateGameState (GameState p_gameState)
