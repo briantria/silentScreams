@@ -1598,6 +1598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5df73dfcd506d64eb9d4eaba2223629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_iScore: -1
   m_image: {fileID: 21254582}
   m_audioSource: {fileID: 8269898}
 --- !u!114 &11419554
@@ -1611,6 +1612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5df73dfcd506d64eb9d4eaba2223629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_iScore: 1
   m_image: {fileID: 21265214}
   m_audioSource: {fileID: 8246792}
 --- !u!114 &11420240
@@ -1624,6 +1626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5df73dfcd506d64eb9d4eaba2223629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_iScore: -1
   m_image: {fileID: 21281100}
   m_audioSource: {fileID: 8270894}
 --- !u!114 &11421204
@@ -1637,6 +1640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5df73dfcd506d64eb9d4eaba2223629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_iScore: -1
   m_image: {fileID: 21267742}
   m_audioSource: {fileID: 8283174}
 --- !u!114 &11431674
@@ -1650,6 +1654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5df73dfcd506d64eb9d4eaba2223629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_iScore: 1
   m_image: {fileID: 21267238}
   m_audioSource: {fileID: 8224472}
 --- !u!114 &11445536
@@ -1663,6 +1668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5df73dfcd506d64eb9d4eaba2223629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_iScore: 1
   m_image: {fileID: 21206582}
   m_audioSource: {fileID: 8239270}
 --- !u!114 &11450840
@@ -1676,6 +1682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5df73dfcd506d64eb9d4eaba2223629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_iScore: 1
   m_image: {fileID: 21269862}
   m_audioSource: {fileID: 8250352}
 --- !u!114 &11453584
@@ -1689,6 +1696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5df73dfcd506d64eb9d4eaba2223629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_iScore: 1
   m_image: {fileID: 21247096}
   m_audioSource: {fileID: 8252862}
 --- !u!114 &11478276
@@ -1702,6 +1710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5df73dfcd506d64eb9d4eaba2223629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_iScore: -1
   m_image: {fileID: 21281376}
   m_audioSource: {fileID: 8203400}
 --- !u!114 &11497746
@@ -1715,6 +1724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5df73dfcd506d64eb9d4eaba2223629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_iScore: 1
   m_image: {fileID: 21280112}
   m_audioSource: {fileID: 8214636}
 --- !u!212 &21206582

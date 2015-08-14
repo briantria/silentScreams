@@ -58,9 +58,9 @@ public class EvidenceBoxManager : MonoSingleton <EvidenceBoxManager>
 
 	public void Reset ()
 	{
-		foreach (Evidence evidence in m_listSelectedEvidences)
+		for (int idx = m_listSelectedEvidences.Count-1; idx >= 0; --idx)
 		{
-			evidence.Reset ();
+			m_listSelectedEvidences[idx].Reset ();
 		}
 
 		m_listSelectedEvidences.Clear ();
