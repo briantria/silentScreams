@@ -22,7 +22,7 @@ public static class UIData
 	public static readonly Dictionary<UICommonButtonKeys, string> UI_BUTTON_PREFABS = new Dictionary<UICommonButtonKeys, string>
 	{
 		{UICommonButtonKeys.Pause, "BtnPause"},
-//		{UICommonButtonKeys.Settings, "BtnSettings"},
+		{UICommonButtonKeys.Settings, "BtnSettings"},
 //		{UICommonButtonKeys.Back, "BtnBack"}
 	};
 }

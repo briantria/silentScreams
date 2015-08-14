@@ -30,6 +30,7 @@ public class UIStateMachine : MonoSingleton <UIStateMachine>
 			ResultManager.Instance.Close ();
 			GameHUDManager.Instance.Close ();
 			ButtonPause.Instance.Close ();
+			ButtonSettings.Instance.Open ();
 			TitleScreenManager.Instance.Open ();
 			break;
 		}
@@ -38,6 +39,7 @@ public class UIStateMachine : MonoSingleton <UIStateMachine>
 			TitleScreenManager.Instance.Close();
 			GameHUDManager.Instance.Open ();
 			ButtonPause.Instance.Open ();
+			ButtonSettings.Instance.Close ();
 			break;
 		}
 		case UIState.OnResultsScreen:
